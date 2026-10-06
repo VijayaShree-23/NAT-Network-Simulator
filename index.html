@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NAT Network Simulator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="logo">↔</div><b>NAT Network Simulator</b></header>
+
+<main>
+<section class="hero">
+<div><h1>Network Address Translation</h1><p>Watch a packet move from a private network through NAT and the ISP to a public server, then return to the original host.</p></div>
+<div class="actions">
+<button id="send" class="primary">▶ Send Packet</button>
+<button id="pause" class="secondary">Ⅱ Pause</button>
+<button id="reset" class="ghost">↻ Reset</button>
+</div>
+</section>
+
+<section class="stats">
+<div><span>Private</span><b>192.168.1.0/24</b></div>
+<div><span>NAT Pool</span><b>50.1.1.1 – 50.1.1.6</b></div>
+<div><span>PAT IP</span><b>50.1.1.1 + ports</b></div>
+<div><span>Transit</span><b>9.1.1.0/8</b></div>
+<div><span>Server</span><b>11.1.1.2:80</b></div>
+</section>
+
+<section class="card">
+<div class="toolbar">
+<div><h2>Network Topology</h2><small id="status">Ready — select a PC and send one packet.</small></div>
+<label>Source PC
+<select id="source">
+<option value="192.168.1.10">PC0 · 192.168.1.10</option>
+<option value="192.168.1.11">PC1 · 192.168.1.11</option>
+<option value="192.168.1.12">PC2 · 192.168.1.12</option>
+<option value="192.168.1.13">PC3 · 192.168.1.13</option>
+</select></label>
+</div>
+
+<div id="network" class="network">
+<div class="zone private">PRIVATE<br><small>192.168.1.0/24</small></div>
+<div class="zone public">PUBLIC<br><small>11.0.0.0/8</small></div>
+<div class="link a"></div><div class="link b"></div><div class="link c"></div><div class="link d"></div><div class="link e"></div>
+
+<div class="node pc n1"><span>💻</span><b>PC0</b><small>192.168.1.10</small></div>
+<div class="node pc n2"><span>💻</span><b>PC1</b><small>192.168.1.11</small></div>
+<div class="node pc n3"><span>💻</span><b>PC2</b><small>192.168.1.12</small></div>
+<div class="node pc n4"><span>💻</span><b>PC3</b><small>192.168.1.13</small></div>
+<div class="node switch sw"><span>▰</span><b>Switch0</b><small>Office LAN</small></div>
+<div class="node router nat"><span>◈</span><b>Router0 · NAT</b><small>192.168.1.1 ↔ 9.1.1.1</small></div>
+<div class="node router isp"><span>◈</span><b>Router1 · ISP</b><small>9.1.1.2 ↔ 11.1.1.1</small></div>
+<div class="node switch sw2"><span>▰</span><b>Switch1</b><small>Public LAN</small></div>
+<div class="node server"><span>▣</span><b>Server0</b><small>11.1.1.2:80</small></div>
+</div>
+</section>
+
+<section class="grid">
+<div class="card panel">
+<div class="panel-title"><h2>Packet Inspector</h2><b id="direction">IDLE</b></div>
+<div class="fields">
+<div><span>Source</span><b id="src">—</b></div>
+<div><span>Translated Source</span><b id="translated">—</b></div>
+<div><span>Destination</span><b>11.1.1.2:80</b></div>
+<div><span>Protocol</span><b>TCP · Simulated</b></div>
+</div>
+<p id="explain" class="explain">NAT changes the private source address before the packet crosses the external network.</p>
+</div>
+
+<div class="card panel">
+<div class="panel-title"><h2>NAT Table</h2><b class="live">● LIVE</b></div>
+<div class="scroll"><table><thead><tr><th>Inside Local</th><th>Inside Global</th><th>Destination</th><th>Status</th></tr></thead><tbody id="table"><tr><td colspan="4">No active translations</td></tr></tbody></table></div>
+</div>
+</section>
+
+<section class="card panel timeline">
+<div class="panel-title"><h2>Packet Flow</h2><b id="step">Step 0 / 7</b></div>
+<div class="steps">
+<div class="active">1 · Private host</div><div>2 · Office switch</div><div>3 · NAT translation</div><div>4 · ISP transit</div><div>5 · Server</div><div>6 · Response</div><div>7 · Private host</div>
+</div>
+</section>
+</main>
+
+<footer>NAT Network Simulator · NAT with PAT extension</footer>
+<script src="app.js"></script>
+</body>
+</html>
