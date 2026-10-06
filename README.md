@@ -1,22 +1,26 @@
-# NAT Network Simulator — Interactive NAT & PAT
+# NAT Network Simulator 🌐
 
-A Computer Networks project that visually demonstrates Network Address Translation (NAT) and its PAT/NAT-overload extension using the Packet Tracer topology as the reference.
+An interactive **Computer Networks** simulator demonstrating Network Address Translation (NAT) and the PAT/NAT-overload extension.
 
-## Main concepts
-- Private IPv4 network: `192.168.1.0/24`
+## Features
+- Private LAN: \`192.168.1.0/24\`
 - NAT router and ISP router
-- Public/server network: `11.0.0.0/8`
-- Dynamic NAT public pool: `50.1.1.1–50.1.1.6`
-- PAT extension: `50.1.1.1` shared with unique public source ports
-- Packet forwarding and return-path translation
-- Inside Local / Inside Global terminology
+- Public server: \`11.1.1.2:80\`
+- NAT pool reference: \`50.1.1.1–50.1.1.6\`
+- PAT example using \`50.1.1.1\` with unique source ports
+- Animated packet journey and return path
+- NAT table with Inside Local / Inside Global mappings
+- One packet per **Send Packet** click
+- Multiple packets may be in flight together
+- Pause/Resume and Reset
 
-## Interaction
-- Select one PC.
-- Click **Send Packet** to send exactly one packet.
-- Click **Send Packet** again to send another packet. Packets can be in flight at the same time.
-- Select different PCs and send again to see separate PAT mappings.
-- Use Pause/Resume and Reset to inspect the packet journey.
+## Run
+Open \`index.html\` directly in a browser, or use VS Code Live Server. No npm installation is required.
+
+## Example PAT mapping
+\`192.168.1.10:5000 → 50.1.1.1:40001\`
+
+\`192.168.1.11:5001 → 50.1.1.1:40002\`
 
 ## Important
-This is an educational simulation, not a real router emulator. Cisco Packet Tracer remains the reference for actual network configuration and IOS behavior.
+This is an educational visualization. It does not generate real network traffic or emulate Cisco IOS. Cisco Packet Tracer is used for actual network configuration practice.
